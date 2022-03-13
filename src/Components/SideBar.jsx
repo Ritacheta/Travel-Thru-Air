@@ -12,14 +12,18 @@ import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
+import {
+  ListItem,
+  ListItemText,
+  ListItemButton,
+  ListItemIcon,
+} from "@mui/material";
 import Button from "@mui/material/Button";
 import FlightIcon from "@mui/icons-material/Flight";
 import PersonIcon from "@mui/icons-material/Person";
 import LocalOfferIcon from "@mui/icons-material/LocalOffer";
 import Container from "./Container";
+import Auth from "./Auth";
 
 const drawerWidth = 240;
 
@@ -91,6 +95,7 @@ const Drawer = styled(MuiDrawer, {
 export default function MiniDrawer() {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
+  const [isAuth, setAuth] = React.useState(false);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -98,6 +103,11 @@ export default function MiniDrawer() {
 
   const handleDrawerClose = () => {
     setOpen(false);
+  };
+  const handleUser = (e) => {
+    e.preventDefault();
+    console.log("in acc");
+    setAuth(true);
   };
 
   return (
@@ -158,6 +168,7 @@ export default function MiniDrawer() {
             </ListItemIcon>
             <ListItemText primary="Flight" sx={{ opacity: open ? 1 : 0 }} />
           </ListItemButton>
+
           <ListItemButton
             key="Special Deals"
             sx={{
@@ -180,6 +191,7 @@ export default function MiniDrawer() {
               sx={{ opacity: open ? 1 : 0 }}
             />
           </ListItemButton>
+
           <ListItemButton
             key="Account"
             sx={{
@@ -187,6 +199,7 @@ export default function MiniDrawer() {
               justifyContent: open ? "initial" : "center",
               px: 2.5,
             }}
+            onClick={handleUser}
           >
             <ListItemIcon
               sx={{
@@ -201,6 +214,11 @@ export default function MiniDrawer() {
           </ListItemButton>
         </List>
       </Drawer>
+      {isAuth && (
+        <div>
+          <Auth />
+        </div>
+      )}
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <Container />
       </Box>
