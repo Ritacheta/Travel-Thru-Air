@@ -8,8 +8,8 @@ import Deals from "./Deals";
 const Flights = () => {
   return (
     <div>
-      {/* <Deals/> */}
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+      <Deals/> 
         <Box
           component="img"
           sx={{
@@ -19,7 +19,7 @@ const Flights = () => {
             alignSelf: "center",
             justifyContent: "center",
             alignItems: "center",
-            margin:"auto"
+            margin: "auto",
           }}
           alt="Home"
           src={homeImage}

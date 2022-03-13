@@ -5,8 +5,8 @@ import Deals from "./Deals";
 const Layout = () => {
   return (
     <div>
-      {/* <SideBar /> */}
-      <Deals/>
+      <SideBar />
+      {/* <Deals/> */}
     </div>
   );
 };

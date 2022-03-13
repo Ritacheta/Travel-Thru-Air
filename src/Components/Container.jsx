@@ -4,8 +4,7 @@ import Deals from './Deals';
 const Container = () => {
   return (
       <div>
-      {/* <Flights/> */}
-      <Deals/>
+      <Flights/>
     </div>
   );
 };

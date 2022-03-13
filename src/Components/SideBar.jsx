@@ -20,8 +20,6 @@ import FlightIcon from "@mui/icons-material/Flight";
 import PersonIcon from "@mui/icons-material/Person";
 import LocalOfferIcon from "@mui/icons-material/LocalOffer";
 import Container from "./Container";
-import Flights from "./Flights";
-import Deals from './Deals'
 
 const drawerWidth = 240;
 

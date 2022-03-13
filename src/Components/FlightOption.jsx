@@ -140,6 +140,8 @@ export default function FlightOption() {
                 padding: 3,
               }}
             >
+              <Box sx={{padding:1}}>
+              </Box>
               <DesktopDatePicker
                 label="Departure"
                 name="dept_date"
@@ -148,7 +150,8 @@ export default function FlightOption() {
                 onChange={handle_deptDate}
                 renderInput={(params) => <TextField {...params} />}
               />
-
+              <Box sx={{padding:3}}>
+              </Box>
               <DesktopDatePicker
                 label="Return"
                 name="ret_date"
