@@ -28,7 +28,7 @@ const initialState = {
   dep_date: new Date(),
   ret_date: new Date(),
 };
-const countries = ["Inida", "Kol"];
+const airports = ["Inida", "Kol"];
 
 export default function FlightOption() {
   const [booking_option, setBooking_option] = React.useState(initialState);
@@ -102,7 +102,7 @@ export default function FlightOption() {
             <Autocomplete
               id="country-select-demo"
               sx={{ width: "20%", padding: 3, paddingTop: 0 }}
-              options={countries}
+              options={airports}
               autoHighlight
               renderInput={(params) => (
                 <TextField
@@ -122,7 +122,7 @@ export default function FlightOption() {
             <Autocomplete
               id="country-select-demo"
               sx={{ width: "20%", padding: 3, paddingTop: 0 }}
-              options={countries}
+              options={airports}
               autoHighlight
               renderInput={(params) => (
                 <TextField
@@ -173,9 +173,6 @@ export default function FlightOption() {
           </Button>
         </CardContent>
       </Card>
-      <div>
-        <FlightCard />
-      </div>
     </div>
   );
 }

@@ -4,12 +4,13 @@ import homeImage from "../assets/home.jpg";
 import Box from "@mui/material/Box";
 import FlightOption from "./FlightOption";
 import Deals from "./Deals";
+import FlightCard from "./FlightCard";
 
 const Flights = () => {
   return (
     <div>
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
-      <Deals/> 
+        <Deals />
         <Box
           component="img"
           sx={{
@@ -42,6 +43,10 @@ const Flights = () => {
         </Box>
       </Box>
       <FlightOption />
+
+      <Box>
+        <FlightCard />
+      </Box>
     </div>
   );
 };
