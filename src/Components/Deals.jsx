@@ -1,4 +1,4 @@
-import React, {useEffect, useState}from "react";
+import React, { useEffect, useState } from "react";
 import { useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import MobileStepper from "@mui/material/MobileStepper";
@@ -19,8 +19,7 @@ const flights = [
     flight_to: "London",
     Date: "22/04/2022",
     cost: 2000,
-    imgPath:
-      "https://images.unsplash.com/photo-1537944434965-cf4679d1a598?auto=format&fit=crop&w=400&h=250&q=60",
+    imgPath: "https://source.unsplash.com/random/300x300?",
   },
   {
     label: "Bird",
@@ -28,17 +27,15 @@ const flights = [
     flight_to: "London",
     Date: "22/04/2022",
     cost: 2000,
-    imgPath:
-      "https://images.unsplash.com/photo-1538032746644-0212e812a9e7?auto=format&fit=crop&w=400&h=250&q=60",
+    imgPath: "https://source.unsplash.com/random/300x300",
   },
   {
     label: "Bali, Indonesia",
     flight_from: "Kol",
-    flight_to: "London",
+    flight_to: "Kolkata",
     Date: "22/04/2022",
     cost: 2000,
-    imgPath:
-      "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=400&h=250&q=80",
+    imgPath: "https://source.unsplash.com/random/300x300",
   },
   {
     label: "Goč, Serbia",
@@ -46,8 +43,7 @@ const flights = [
     flight_to: "London",
     Date: "22/04/2022",
     cost: 2000,
-    imgPath:
-      "https://images.unsplash.com/photo-1512341689857-198e7e2f3ca8?auto=format&fit=crop&w=700&h=700&q=60",
+    imgPath: "https://source.unsplash.com/random/300x300",
   },
 ];
 
@@ -69,11 +65,18 @@ function Deals() {
   };
 
   useEffect = () => {
-    console.log("abbs")
-  }
+    //console.log("abbs");
+  };
 
   return (
-    <Box sx={{ height: "100vh", flexFlow: 1, flexDirection: "row" }}>
+    <Box
+      sx={{
+        height: "100vh",
+        maxWidth: "100vw",
+        flexFlow: 1,
+        flexDirection: "row",
+      }}
+    >
       <AutoPlaySwipeableViews
         axis={theme.direction === "rtl" ? "x-reverse" : "x"}
         index={activeStep}
@@ -83,14 +86,14 @@ function Deals() {
         {flights.map((step, index) => (
           <div key={step.label} className="deals">
             {Math.abs(activeStep - index) <= 2 ? (
-              <div className="Deals-image"
+              <div
+                className="Deals-image"
                 style={{
-                  backgroundImage: `url(${step.imgPath})`,
+                  backgroundImage: `url('https://source.unsplash.com/random/300x300?${step.flight_to}')`,
                   height: "100vh",
                   backgroundSize: "cover",
                   backgroundRepeat: "no-repeat",
                   backgroundPosition: "top center",
-
                 }}
               >
                 <Box
@@ -98,7 +101,7 @@ function Deals() {
                   sx={{
                     height: "100vh",
                     overflow: "hidden",
-                    width: "100%",
+                    width: "100vw",
                     // backgroundImage: `url(${step.imgPath})`,
                     // backgroundSize: "cover",
                     // color: "black",
