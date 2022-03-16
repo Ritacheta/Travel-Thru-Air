@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { styled, Box } from '@mui/system';
 import ModalUnstyled from '@mui/base/ModalUnstyled';
+import {Typography} from '@mui/material';
 
 const StyledModal = styled(ModalUnstyled)`
   position: fixed;
@@ -37,6 +38,7 @@ const style = {
 const initialState = { 
   nickname: '',
   password: '',
+  error:''
 }
 
 export default function Auth() {
@@ -50,10 +52,19 @@ export default function Auth() {
     setForm({...form,[e.target.name]:e.target.value});
   }
 
-  const handleSubmit = async(e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(form.nickname);
-    handleClose();
+    // console.log(form.nickname);
+    fetch("http://127.0.0.1:3333/First_App/getall")
+        .then(res => res.json())
+        .then(
+        (error) => {
+            form.error=error;
+        })
+    if(form.error!==''){
+      handleClose();
+    }
+    
   }
   const {nickname, password} = form;
   return (
@@ -93,6 +104,10 @@ export default function Auth() {
             <button>Submit</button>
           </div>
         </form>
+        <Typography color="red">
+          {form.error}
+        </Typography>
+
         </Box>
       </StyledModal>
     </div>

@@ -45,9 +45,9 @@ const Flights = () => {
 			<Box>
 				<FlightOption />
 			</Box>
-			<Box>
+			{/* <Box>
 				<FlightCard />
-			</Box>
+			</Box> */}
 		</div>
 	);
 };

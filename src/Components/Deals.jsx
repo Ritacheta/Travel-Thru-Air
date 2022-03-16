@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, {useEffect, useState}from "react";
 import { useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import MobileStepper from "@mui/material/MobileStepper";
@@ -53,7 +53,7 @@ const flights = [
 
 function Deals() {
   const theme = useTheme();
-  const [activeStep, setActiveStep] = React.useState(0);
+  const [activeStep, setActiveStep] = useState(0);
   const maxSteps = flights.length;
 
   const handleNext = () => {
@@ -67,6 +67,10 @@ function Deals() {
   const handleStepChange = (step) => {
     setActiveStep(step);
   };
+
+  useEffect = () => {
+    console.log("abbs")
+  }
 
   return (
     <Box sx={{ height: "100vh", flexFlow: 1, flexDirection: "row" }}>
