@@ -15,6 +15,7 @@ const Flights = () => {
 					component="img"
 					sx={{
 						padding: "2%",
+						paddingTop: "20vh",
 						width: "60%",
 						display: "flex",
 						alignSelf: "center",
@@ -45,9 +46,6 @@ const Flights = () => {
 			<Box>
 				<FlightOption />
 			</Box>
-			{/* <Box>
-				<FlightCard />
-			</Box> */}
 		</div>
 	);
 };

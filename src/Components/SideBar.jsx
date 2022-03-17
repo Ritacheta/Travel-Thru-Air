@@ -19,6 +19,7 @@ import PersonIcon from "@mui/icons-material/Person";
 import LocalOfferIcon from "@mui/icons-material/LocalOffer";
 import Container from "./Container";
 import Auth from "./Auth";
+import Cookies from "js-cookie";
 
 const drawerWidth = 240;
 
@@ -91,6 +92,7 @@ export default function MiniDrawer() {
 	const theme = useTheme();
 	const [open, setOpen] = React.useState(false);
 	const [isAuth, setAuth] = React.useState(false);
+	const [isLogin, setIsLogin] = React.useState(false);
 
 	const handleDrawerOpen = () => {
 		setOpen(true);
@@ -99,10 +101,18 @@ export default function MiniDrawer() {
 	const handleDrawerClose = () => {
 		setOpen(false);
 	};
+
 	const handleUser = (e) => {
 		e.preventDefault();
-		console.log("in acc");
 		setAuth(true);
+		setIsLogin(true);
+	};
+
+	const handleLogOut = (e) => {
+		e.preventDefault();
+		setAuth(false);
+		Cookies.remove("cid");
+		setIsLogin(false);
 	};
 
 	return (
@@ -125,7 +135,17 @@ export default function MiniDrawer() {
 					<Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1 }}>
 						Travel Thru Air
 					</Typography>
-					<Button color="inherit">Login</Button>
+					{/* {Cookies.get("cid") == null ? ( */}
+					{isLogin && (
+						<Button color="inherit" onClick={handleLogOut}>
+							Logout
+						</Button>
+					) }
+					{!isLogin && (
+						<Button color="inherit" onClick={handleUser}>
+							Login
+						</Button>
+					)}
 				</Toolbar>
 			</AppBar>
 			<Drawer variant="permanent" open={open}>
@@ -196,7 +216,7 @@ export default function MiniDrawer() {
 					</ListItemButton>
 				</List>
 			</Drawer>
-			{isAuth && (
+			{isAuth &&  (
 				<div>
 					<Auth />
 				</div>

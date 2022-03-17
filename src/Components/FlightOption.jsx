@@ -9,8 +9,7 @@ import {
   FormControl,
   MenuItem,
   Box,
-  InputLabel,
-  Button,
+  Button
 } from "@mui/material";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
@@ -18,6 +17,15 @@ import DesktopDatePicker from "@mui/lab/DesktopDatePicker";
 import CompareArrowsIcon from "@mui/icons-material/CompareArrows";
 import SearchIcon from "@mui/icons-material/Search";
 import FlightCard from "./FlightCard";
+import { useTheme } from "@mui/material/styles";
+import { experimentalStyled as styled } from "@mui/material/styles";
+
+const Img = styled("img")({
+  margin: "auto",
+  display: "block",
+  maxWidth: "100%",
+  maxHeight: "100%",
+});
 
 const initialState = {
   booking_type: "Round Trip",
@@ -25,7 +33,7 @@ const initialState = {
   booked_class: "Economy",
   flight_from: "",
   flight_to: "",
-  dep_date: new Date(),
+  dept_date: new Date(),
   ret_date: new Date(),
 };
 
@@ -43,7 +51,7 @@ let airports = [
   "DXB Dubai",
 ];
 
-const searched_flights = [];
+let searched_flights = [];
 
 function padTo2Digits(num) {
   return num.toString().padStart(2, "0");
@@ -63,35 +71,51 @@ function jsonToArray(json) {
 
 export default function FlightOption() {
   const [search_option, setBooking_option] = React.useState(initialState);
-  const [Is_Round_Trip, setIsRoundTrip] = React.useState(true);
+  const [Is_click, setIsclick] = React.useState(false);
 
   const handleChange = (e) => {
     setBooking_option({ ...search_option, [e.target.name]: e.target.value });
+    setIsclick(false);
   };
   const handle_deptDate = (new_date) => {
-    setBooking_option({ ...search_option, dep_date: new_date });
+    setBooking_option({ ...search_option, dept_date: new_date });
+    setIsclick(false);
   };
   const handle_retDate = (new_date) => {
     setBooking_option({ ...search_option, ret_date: new_date });
+    setIsclick(false);
   };
 
-  const handleFlightSearch = (e) => {
+  const onInputChange_from= (event,value) => {
+    event.preventDefault();
+    setBooking_option({ ...search_option, flight_from: value });
+    setIsclick(false);
+    };
+
+    const onInputChange_to= (event,value) => {
+      event.preventDefault();
+      setBooking_option({ ...search_option, flight_to: value });
+      setIsclick(false);
+      };
+
+  const handleFlightSearch = async(e) => {
     e.preventDefault();
-    fetch(
-      "http://localhost:8081/FlightApp/Flights?fromcity=" +
-        search_option.flight_from.split(" ")[0] +
-        "&tocity=" +
-        search_option.flight_to.split(" ")[0] +
-        "&day=" +
-        search_option.dep_date.getDay()
-    )
+    var url = "http://localhost:8081/FlightApp/Flights?fromcity=" +
+    search_option.flight_from.split(" ")[0] +
+    "&tocity=" +
+    search_option.flight_to.split(" ")[0] +
+    "&day=" +
+    search_option.dept_date.getDay();
+    fetch(url)
       .then((res) => res.json())
-      .then((response) => {
-        console.log(response.flights);
-        searched_flights = jsonToArray(response.flights);
-      });
-    console.log(searched_flights);
+      .then((res) => {
+        searched_flights = jsonToArray(res);
+        setIsclick(true);
+      })
+    //console.log(search_option.dept_date)
   };
+
+ 
 
   return (
     <div>
@@ -109,6 +133,7 @@ export default function FlightOption() {
               name="booking_type"
               onChange={handleChange}
               value={search_option.booking_type}
+              
             >
               <MenuItem value={"Round Trip"}>Round Trip</MenuItem>
               <MenuItem value={"One Way"}>One Way</MenuItem>
@@ -154,13 +179,13 @@ export default function FlightOption() {
               sx={{ width: "20%", padding: 3, paddingTop: 0 }}
               options={airports}
               autoHighlight
+              onChange={onInputChange_from}
               renderInput={(params) => (
                 <TextField
                   {...params}
                   label="Where from?"
-                  onChange={handleChange}
-                  value={search_option.flight_from}
                   name="flight_from"
+                  value={search_option.flight_from}
                 />
               )}
             />
@@ -174,11 +199,11 @@ export default function FlightOption() {
               sx={{ width: "20%", padding: 3, paddingTop: 0 }}
               options={airports}
               autoHighlight
+              onChange={onInputChange_to}
               renderInput={(params) => (
                 <TextField
                   {...params}
                   label="Where to?"
-                  onChange={handleChange}
                   value={search_option.flight_to}
                   name="flight_to"
                 />
@@ -195,7 +220,7 @@ export default function FlightOption() {
                 label="Departure"
                 name="dept_date"
                 inputFormat="dd/MM/yyyy"
-                value={search_option.dep_date}
+                value={search_option.dept_date}
                 onChange={handle_deptDate}
                 renderInput={(params) => <TextField {...params} />}
               />
@@ -224,12 +249,12 @@ export default function FlightOption() {
           </Button>
         </CardContent>
       </Card>
-      <Box>
+      {Is_click && (<Box >
         <FlightCard
           flights={searched_flights}
-          searched_option={search_option}
+          search_option = {search_option}
         />
-      </Box>
+      </Box>) }
     </div>
   );
 }
